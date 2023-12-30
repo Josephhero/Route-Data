@@ -14,7 +14,7 @@ players <- load_players() |>
   select(gsis_id, display_name, name_label, position_group) 
 
 
-dat <- load_participation(seasons = YEAR, include_pbp = TRUE) |> 
+dat <- load_participation(seasons = 2018:YEAR, include_pbp = TRUE) |> 
   filter(!is.na(route)) |> 
   mutate(route = case_when(
     route %in% c("ANGLE", "WHEEL", "SCREEN") ~ "OTHER", 
@@ -89,11 +89,11 @@ for (i in seasons){
 
 for (i in seasons){
   
-  r_routes <- passer_routes |> 
+  r_routes <- receiver_routes |> 
     filter(season == i)
   
   saveRDS(r_routes, paste0("Data/", i, "_receiver_routes.rds"))
-  saveRDS(passer_list, paste0("Data/receiver_names.rds"))
+  saveRDS(receiver_list, paste0("Data/receiver_names.rds"))
   
 }
 
