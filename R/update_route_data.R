@@ -1,6 +1,6 @@
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(nflreadr)
-library(nflplotR)
 
 # Data-----
 
@@ -94,6 +94,4 @@ for (i in seasons){
   saveRDS(passer_list, paste0("Data/receiver_names.rds"))
   
 }
-
-
 
