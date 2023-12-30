@@ -11,7 +11,7 @@ YEAR <- get_current_season()
 players <- load_players() |> 
   filter(position_group %in% c("WR", "TE", "RB", "QB")) |> 
   mutate(name_label = paste0(display_name, " (", position_group, ", #", jersey_number, ")")) |> 
-  select(gsis_id, display_name, name_label) 
+  select(gsis_id, display_name, name_label, position_group) 
 
 
 dat <- load_participation(seasons = YEAR, include_pbp = TRUE) |> 
@@ -43,6 +43,7 @@ receiver_routes <- dat |>
          receiver_name, receiver_name_label, route, everything())
 
 receiver_list <- receiver_routes |> 
+  filter(position_group != "QB") |> 
   select(receiver_id, receiver, receiver_name, receiver_name_label) |> 
   distinct()
 
@@ -69,6 +70,7 @@ passer_routes <- dat |>
   
 
 passer_list <- passer_routes |> 
+  filter(position_group == "QB") |> 
   select(passer_id, passer, passer_name, passer_name_label) |> 
   distinct()
 
@@ -94,4 +96,6 @@ for (i in seasons){
   saveRDS(passer_list, paste0("Data/receiver_names.rds"))
   
 }
+
+
 
